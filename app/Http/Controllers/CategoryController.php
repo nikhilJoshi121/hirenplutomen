@@ -15,8 +15,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $listCategoty = Category::with('subCategories')->orderBy('name')->get();
+        $listCategoty = Category::with('subCategories')->get();
         return response()->json(['data'=> $listCategoty]);
+    }
+
+    public function showOn()
+    {
+        $category = Category::whereNull('category_id')->with('subCategories')->get();
+        return view('welcome', compact('category'));
     }
 
     /**
